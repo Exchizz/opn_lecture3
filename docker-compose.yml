@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+   db:
+     build: sql/
+     container_name: db_container
+     volumes:
+       - db_data:/var/lib/mysql
+     restart: always
+
+   web:
+     depends_on:
+       - db
+     build: web/
+     container_name: web_container
+     ports:
+       - "8000:80"
+     restart: always
+
+volumes:
+    db_data:
